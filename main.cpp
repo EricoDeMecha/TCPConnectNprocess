@@ -6,6 +6,7 @@
 boost::asio::streambuf receive_buffer;
 void handler(const boost::system::error_code& e, std::size_t size)
 {
+    std::cout << "reached here" << std::endl;
     if (!e)
     {
         std::istream message_stream(&receive_buffer);
