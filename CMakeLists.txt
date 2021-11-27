@@ -8,7 +8,7 @@ set(SOURCE_FILES
 # Boost Asio for networking
 set(BOOST_DEBUG ON)
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost COMPONENTS system regex REQUIRED)
+find_package(Boost COMPONENTS system program_options regex REQUIRED)
 if(Boost_FOUND)
     message("${Boost_VERSION_STRING} Boost found")
     include_directories(${Boost_INCLUDE_DIR})

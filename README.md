@@ -24,3 +24,9 @@ cmake .. && make
 ```bash
 ./exec --help  # prints usage
 ```
+
+## Options 
+In case of trouble cmake finding zlib you can compile directly from bash using g++ with the following flags
+```asm
+g++ main.cpp -lboost_program_options -lboost_system -lboost_regex -lboost_iostreams -lz -o exec && ./exec -h <host Ip> -p <port>
+```
