@@ -1,8 +1,19 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
+#include <boost/regex.hpp>
 
-
+boost::asio::streambuf receive_buffer;
+void handler(const boost::system::error_code& e, std::size_t size)
+{
+    if (!e)
+    {
+        std::istream message_stream(&receive_buffer);
+        std::string line;
+        std::getline(message_stream, line);
+        std::cout << line  << '\n';
+    }
+}
 int main(int argc, char* argv[])
 {
     std::string raw_ip_addr  = "20.108.244.219";
@@ -14,6 +25,8 @@ int main(int argc, char* argv[])
         sock.connect(ep);
         std::cout << "Connection successful" << '\n';
         // read from the connected socket
+        boost::system::error_code error;
+        boost::asio::async_read_until(sock, receive_buffer,boost::regex("^(0x|0X)?[a-fA-F0-9]+$"), handler);
     }catch(boost::system::system_error& e){
         std::cout << "Error occured!" << \
         "Error code: "<<e.code() << \

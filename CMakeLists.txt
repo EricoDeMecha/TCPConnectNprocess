@@ -8,7 +8,7 @@ set(SOURCE_FILES
 
 set(BOOST_DEBUG ON)
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost COMPONENTS system REQUIRED)
+find_package(Boost COMPONENTS system regex REQUIRED)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIR})
     message("Boost Version 1.65 found")
