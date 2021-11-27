@@ -26,8 +26,8 @@ int main(int argc, char* argv[])
         sock.connect(ep);
         std::cout << "Connection successful" << '\n';
         // read from the connected socket
-        boost::system::error_code error;
-        boost::asio::async_read_until(sock, receive_buffer,boost::regex("^(0x|0X)?[a-fA-F0-9]+$"), handler);
+        boost::system::error_code ec;
+        boost::asio::async_read_until(sock, receive_buffer,boost::regex("(?<=1)(.*)(?=)"), handler);
     }catch(boost::system::system_error& e){
         std::cout << "Error occured!" << \
         "Error code: "<<e.code() << \
