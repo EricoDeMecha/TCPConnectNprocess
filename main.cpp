@@ -17,6 +17,11 @@ int main(int argc, char* argv[])
                 TCPClient::hexDecodeMessage(msg, d_msg);
                 std::string decompressed_msg = TCPClient::decompressMessage(d_msg);
                 std::cout << decompressed_msg << '\n';
+                tcpp.writeMessage(decompressed_msg, ec);
+                std::cout << "Has written" << '\n';
+                std::string  final_message = tcpp.readResponse(ec);
+                std::cout << "Has read" << '\n';
+                std::cout << final_message << '\n';
                 break;
             }
         }

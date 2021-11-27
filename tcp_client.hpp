@@ -19,7 +19,9 @@ struct TCPClient{
             throw boost::system::system_error(e.code());
         }
     }
-    ~TCPClient() = default;
+    ~TCPClient(){
+        socket.close();
+    };
     std::string readMessage(boost::system::error_code& ec){
             boost::array<char, 1024> buf{};
             long len = socket.read_some(boost::asio::buffer(buf), ec);
@@ -36,6 +38,20 @@ struct TCPClient{
     }
     static std::string decompressMessage(std::string& d_msg){
         return Gzip::decompress(d_msg);
+    }
+    void writeMessage(std::string& message, boost::system::error_code& ec){
+        socket.write_some(boost::asio::buffer(message.data(), message.size()), ec);
+    }
+    std::string readResponse(boost::system::error_code& ec){
+        std::string r_message;
+        std::stringstream message_stream;
+        boost::asio::streambuf  buffer;
+        size_t len = boost::asio::read_until(socket, buffer, '\n', ec);
+        if(len){
+            message_stream.write(boost::asio::buffer_cast<const char*>(buffer.data()), len);
+            r_message = message_stream.str();
+        }
+        return r_message;
     }
 
 private:
