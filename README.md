@@ -5,28 +5,24 @@ whitelines until a hex string. It then processes the hex string by decoding usin
 to the server and reads the final response of the server.
 
 ## Dependencies
-* C++ Boost version 1.65+ with zlib support
-  * if not, download and build zlib source code and link it in cmake
+* C++ Boost - *Version specified in ```conanfile.txt```*
+
 ## Setup
-* Clone
+This project's packages are managed using conan. 
+
 ```bash
-git clone <git url>
-```
-* change directory
-```bash
-cd <project_dir> && mkdir build
-```
-* build
-```bash
-cmake .. && make
-```
-* execute
-```bash
-./exec --help  # prints usage
+pip install --user conan
 ```
 
-## Options 
-In case of trouble cmake finding zlib you can compile directly from bash using g++ with the following flags
-```asm
-g++ main.cpp -lboost_program_options -lboost_system -lboost_regex -lboost_iostreams -lz -o exec && ./exec -h <host Ip> -p <port>
+The project also uses cmake and ninja generators.
+```bash
+sudo apt install build-essential cmake ninja-build 
+```
+
+## Usage
+
+There an assistive build script to build the project.
+
+```bash
+    chmod +x build.sh  && ./build.sh 
 ```
